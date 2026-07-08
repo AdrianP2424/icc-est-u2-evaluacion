@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.TreeSet;
+import java.util.Map;
+import java.util.Set;
 import models.LabSupply;
+import controllers.InventoryController;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -18,8 +21,6 @@ public class App {
         supplies.add(new LabSupply("INT-206-106" , "Carlos Mendez", 90));
         supplies.add(new LabSupply("INT-204-105", "Ana Molina", 20));
 
-
-
         supplies.add(new LabSupply("INT-207-104", "Juan Moral", 25));
         supplies.add(new LabSupply("INT-208-109", "Xaviar Ortega",70));
         supplies.add(new LabSupply("INT-202-101", "Andrea Solano", 55));
@@ -28,6 +29,18 @@ public class App {
         supplies.add(new LabSupply("INT-204-103", "Fabricio Guaman", 90));
         supplies.add(new LabSupply("INT-209-100", "Jhonnatan Mendoza", 65));
 
+        InventoryController controller = new InventoryController();
 
+        System.out.println("--- METODO A: filterAndSortSupplies ---");
+        TreeSet<LabSupply> resultadoA = controller.filterAndSortSupplies(supplies, 45);
+        for (LabSupply s : resultadoA) {
+            System.out.println(s.getCodigo() + " - " + s.getNombre() + " - " + s.getStock());
+        }
+
+        System.out.println("\n--- METODO B: groupCodesByStock ---");
+        Map<String, Set<Integer>> resultadoB = controller.groupCodesByStock(supplies);
+        for (Map.Entry<String, Set<Integer>> entry : resultadoB.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 }
