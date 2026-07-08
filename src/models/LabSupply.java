@@ -1,6 +1,7 @@
 package models;
 
 
+
 public class LabSupply {
 
     private String code;
